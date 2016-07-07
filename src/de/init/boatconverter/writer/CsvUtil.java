@@ -36,7 +36,7 @@ public class CsvUtil {
 		String fileTimestamp = "-" + sdf2.format(calNow.getTime());
 
 		try {
-			File file = new File("files\\" + name + fileTimestamp + ".csv");
+			File file = new File(name + fileTimestamp + ".csv");
 			file.getParentFile().mkdirs();
 			file.createNewFile();
 
