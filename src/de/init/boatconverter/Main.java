@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import de.init.boatconverter.converter.XLSXParser;
 import de.init.boatconverter.pojos.CallHolder;
 import de.init.boatconverter.reader.FileReader;
+import de.init.boatconverter.writer.CSVWriter;
 
 public class Main {
 
@@ -23,11 +24,7 @@ public class Main {
 			ArrayList<ArrayList<String>> sheetList = new FileReader().readFile(path);
 			ArrayList<CallHolder> callholders = new XLSXParser(sheetList).convertValues();
 
-			for (CallHolder holder : callholders) {
-				System.out.println(holder);
-			}
-
-			// new CSVWriter().createCSV(callholders);
+			new CSVWriter().createCSV(callholders);
 
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

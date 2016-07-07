@@ -39,7 +39,7 @@ public class XLSXParser {
 					callHolder.setPerson(element);
 					break;
 				case 1:
-					callHolder.setTask(parsePriceLevel(element));
+					callHolder.setPriceclass(parsePriceLevel(element));
 					break;
 				case 4:
 					callHolder.setWorkDescription(element);
@@ -64,7 +64,8 @@ public class XLSXParser {
 			}
 			callHolders.add(callHolder);
 		}
-
+		changeContentFormat();
+		changeCallLenght();
 		return callHolders;
 	}
 
@@ -73,12 +74,6 @@ public class XLSXParser {
 		String result = strings[strings.length - 2] + " " + strings[strings.length - 1];
 		return result;
 
-	}
-
-	private double generateTimeValue(double time) {
-		double localTemp = time * 24;
-		localTemp = roundTo2Decimals(localTemp);
-		return localTemp;
 	}
 
 	private double roundTo2Decimals(double val) {
@@ -94,7 +89,6 @@ public class XLSXParser {
 
 	private void changeContentFormat() {
 		for (CallHolder holder : callHolders) {
-			holder.setTimeEffort(holder.getTimeTo() - holder.getTimeFrom() - holder.getTimeBreak());
 			String temp = holder.getWorkDescription();
 			holder.setWorkDescription(removeInvalidCharacters(temp));
 		}
@@ -123,11 +117,12 @@ public class XLSXParser {
 		ArrayList<CallHolder> localList = new ArrayList<CallHolder>();
 		for (CallHolder holder : callHolders) {
 
-			if (holder.getTimeBreak() < 1) {
+			if (holder.getTimeBreak() < 1 && holder.getTimeEffort() >= 6) {
 				double originalBreakTime = holder.getTimeBreak();
 				double toAdd = 1 - originalBreakTime;
 				holder.setTimeBreak(1.0);
 				holder.setTimeTo(holder.getTimeTo() + toAdd);
+				holder.setInternalNote("Buchung >= 6 Stunden -> 1 Stunde Pausenzeit hinzugefuegt und Zeiten veraendert");
 			}
 
 			if (holder.getTimeEffort() > 6) {
@@ -148,8 +143,13 @@ public class XLSXParser {
 				localHolder.setTimeTo(oldToValue);
 				localHolder.setTimeEffort(oldToValue - toValue);
 
+				String message = "Buchung > 6 Stunden -> Aufgesplitted in zwei Buchungen, Zeiten fuer Pause angepasst";
+				holder.setInternalNote(message);
+				localHolder.setInternalNote(message);
+
 				localList.add(holder);
 				localList.add(localHolder);
+
 			} else {
 				localList.add(holder);
 			}

@@ -1,6 +1,5 @@
 package de.init.boatconverter.pojos;
 
-
 public class CallHolder {
 
 	private String date;
@@ -10,8 +9,8 @@ public class CallHolder {
 	private double timeBreak = 0;
 	private String workDescription;
 	private String person;
-	private String task;
 	private String priceclass;
+	private String internalNote = "";
 
 	public String getDate() {
 		return date;
@@ -69,18 +68,31 @@ public class CallHolder {
 		this.person = person;
 	}
 
-	public String getTask() {
-		return task;
+	public String getPriceclass() {
+		return priceclass;
 	}
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setPriceclass(String priceclass) {
+		this.priceclass = priceclass;
+	}
+
+	public String getInternalNote() {
+		return internalNote;
+	}
+
+	public void setInternalNote(String internalNote) {
+		if (this.internalNote.equals("")) {
+			this.internalNote = internalNote;
+		} else {
+			this.internalNote += "; " + internalNote;
+		}
+
 	}
 
 	@Override
 	public String toString() {
 		return "CallHolder [date=" + date + ", timeFrom=" + timeFrom + ", timeTo=" + timeTo + ", timeEffort=" + timeEffort + ", timeBreak=" + timeBreak
-				+ ", workDescription=" + workDescription + ", person=" + person + ", task=" + task + "]";
+				+ ", workDescription=" + workDescription + ", person=" + person + ", priceclass=" + priceclass + ", internalNote=" + internalNote + "]";
 	}
 
 }
