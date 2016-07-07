@@ -37,7 +37,7 @@ public class CsvUtil {
 
 		try {
 			File file = new File(name + fileTimestamp + ".csv");
-			file.getParentFile().mkdirs();
+			// file.getParentFile().mkdirs();
 			file.createNewFile();
 
 			BufferedWriter out = null;
