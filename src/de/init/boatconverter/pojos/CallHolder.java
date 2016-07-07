@@ -1,21 +1,23 @@
 package de.init.boatconverter.pojos;
 
-import java.util.Date;
 
 public class CallHolder {
 
-	private Date date;
+	private String date;
 	private double timeFrom;
 	private double timeTo;
 	private double timeEffort;
-	private double timeBreak;
+	private double timeBreak = 0;
 	private String workDescription;
+	private String person;
+	private String task;
+	private String priceclass;
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -57,6 +59,28 @@ public class CallHolder {
 
 	public void setWorkDescription(String workDescription) {
 		this.workDescription = workDescription;
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
+	}
+
+	@Override
+	public String toString() {
+		return "CallHolder [date=" + date + ", timeFrom=" + timeFrom + ", timeTo=" + timeTo + ", timeEffort=" + timeEffort + ", timeBreak=" + timeBreak
+				+ ", workDescription=" + workDescription + ", person=" + person + ", task=" + task + "]";
 	}
 
 }

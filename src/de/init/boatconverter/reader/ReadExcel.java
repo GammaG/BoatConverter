@@ -15,8 +15,7 @@ public class ReadExcel {
 
 	public ArrayList<ArrayList<Object>> readTheXLSXFile(String path) throws IOException {
 		ArrayList<ArrayList<Object>> sheetList = new ArrayList<>();
-		// FileInputStream file = new FileInputStream(new
-		// File("files\\Leistungsnachweise.xlsx"));
+
 		FileInputStream file = new FileInputStream(new File(path));
 
 		// Create Workbook instance holding reference to .xlsx file

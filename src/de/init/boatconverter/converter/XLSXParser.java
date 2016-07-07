@@ -2,9 +2,6 @@ package de.init.boatconverter.converter;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 
 import de.init.boatconverter.pojos.CallHolder;
 
@@ -18,60 +15,64 @@ public class XLSXParser {
 
 	private ArrayList<CallHolder> callHolders = new ArrayList<CallHolder>();
 
-	private ArrayList<ArrayList<Object>> sheetList;
+	private ArrayList<ArrayList<String>> sheetList;
 
-	public XLSXParser(ArrayList<ArrayList<Object>> sheetList) {
+	public XLSXParser(ArrayList<ArrayList<String>> sheetList) {
 		this.sheetList = sheetList;
 	}
 
 	public ArrayList<CallHolder> convertValues() {
 
-		for (ArrayList<Object> valueList : sheetList) {
-			int typeGuesser = 0;
-			CallHolder callHolder = null;
-			// skip first 14 useless information
-			for (int counter = 14; counter < valueList.size(); counter++) {
-				// every 6 values create a new CallHolder
-				typeGuesser++;
-				if (typeGuesser == 1) {
-					callHolder = new CallHolder();
+		for (ArrayList<String> line : sheetList) {
+			boolean skip = false;
+			CallHolder callHolder = new CallHolder();
+			for (int i = 0; i < line.size(); i++) {
+				String element = line.get(i);
+				// skip first line
+				if (element.equals("Mitarbeiter") || skip) {
+					skip = true;
 					continue;
 				}
-				// skip invalid values - no CallHolder will be added into the
-				// list
-				Object value = valueList.get(counter);
-				if (value == null) {
-					continue;
-				}
-				if (value instanceof String) {
-					String temp = (String) value;
-					callHolder.setWorkDescription(temp);
-				} else if (value instanceof Double) {
-					double temp = (double) value;
-					if (typeGuesser == 2) {
 
-						Calendar calendar = HSSFDateUtil.getJavaCalendar(temp);
-						callHolder.setDate(calendar.getTime());
-					}
-					if (typeGuesser == 3) {
-						callHolder.setTimeFrom(generateTimeValue(temp));
-					}
-					if (typeGuesser == 4) {
-						callHolder.setTimeTo(generateTimeValue(temp));
-					}
-					if (typeGuesser == 5) {
-						callHolder.setTimeBreak(generateTimeValue(temp));
-					}
-				}
-				if (typeGuesser == 6) {
-					typeGuesser = 0;
-					callHolders.add(callHolder);
+				switch (i) {
+				case 0:
+					callHolder.setPerson(element);
+					break;
+				case 1:
+					callHolder.setTask(parsePriceLevel(element));
+					break;
+				case 4:
+					callHolder.setWorkDescription(element);
+					break;
+				case 5:
+					callHolder.setDate(element);
+					break;
+				case 6:
+					element = element.replace(",", ".");
+					callHolder.setTimeEffort(new Double(element));
+					break;
+				case 7:
+					callHolder.setTimeFrom(Constants.generateDoubleFromTimeString(element));
+					break;
+				case 8:
+					callHolder.setTimeTo(Constants.generateDoubleFromTimeString(element));
+					break;
 				}
 			}
+			if (skip) {
+				continue;
+			}
+			callHolders.add(callHolder);
 		}
-		changeContentFormat();
-		changeCallLenght();
+
 		return callHolders;
+	}
+
+	private String parsePriceLevel(String element) {
+		String[] strings = element.split("[ ]+");
+		String result = strings[strings.length - 2] + " " + strings[strings.length - 1];
+		return result;
+
 	}
 
 	private double generateTimeValue(double time) {

@@ -39,4 +39,33 @@ public class Constants {
 		return value;
 	}
 
+	public static double generateDoubleFromTimeString(String time) {
+		double value = 0;
+
+		String[] temp = time.split("[:]+");
+
+		String iPart = temp[0];
+		String fPart = temp[1];
+
+		value += new Double(iPart);
+
+		switch (fPart) {
+
+		case "15":
+			value += 0.25;
+			break;
+
+		case "30":
+			value += 0.5;
+			break;
+
+		case "45":
+			value += 0.75;
+			break;
+
+		}
+
+		return value;
+	}
+
 }
