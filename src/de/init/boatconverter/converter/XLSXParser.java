@@ -137,10 +137,10 @@ public class XLSXParser {
 				}
 
 				holder.setTimeTo(toValue);
-				holder.setTimeEffort(holder.getTimeTo() - holder.getTimeFrom() - holder.getTimeBreak());
+				holder.setTimeEffort(holder.getTimeTo() - holder.getTimeFrom());
 				localHolder.setTimeFrom(toValue + holder.getTimeBreak());
 				localHolder.setTimeTo(oldToValue);
-				localHolder.setTimeEffort(oldToValue - toValue);
+				localHolder.setTimeEffort(oldToValue - (toValue + holder.getTimeBreak()));
 				localHolder.setPerson(holder.getPerson());
 				localHolder.setPriceclass(holder.getPriceclass());
 
