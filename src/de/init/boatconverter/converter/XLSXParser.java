@@ -122,7 +122,6 @@ public class XLSXParser {
 				double toAdd = 1 - originalBreakTime;
 				holder.setTimeBreak(1.0);
 				holder.setTimeTo(holder.getTimeTo() + toAdd);
-				holder.setInternalNote("Buchung >= 6 Stunden -> 1 Stunde Pausenzeit hinzugefuegt und Zeiten veraendert");
 			}
 
 			if (holder.getTimeEffort() > 6) {
@@ -142,6 +141,8 @@ public class XLSXParser {
 				localHolder.setTimeFrom(toValue + holder.getTimeBreak());
 				localHolder.setTimeTo(oldToValue);
 				localHolder.setTimeEffort(oldToValue - toValue);
+				localHolder.setPerson(holder.getPerson());
+				localHolder.setPriceclass(holder.getPriceclass());
 
 				String message = "Buchung > 6 Stunden -> Aufgesplitted in zwei Buchungen, Zeiten fuer Pause angepasst";
 				holder.setInternalNote(message);
