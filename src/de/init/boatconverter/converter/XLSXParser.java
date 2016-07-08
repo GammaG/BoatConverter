@@ -1,7 +1,9 @@
 package de.init.boatconverter.converter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import de.init.boatconverter.pojos.CallHolder;
 
@@ -12,6 +14,14 @@ import de.init.boatconverter.pojos.CallHolder;
  *
  */
 public class XLSXParser {
+
+	private int PERSON = 0;
+	private int PRICECLASS = 1;
+	private int WORKDESCRIPTION = 4;
+	private int DATE = 5;
+	private int EFFORT = 6;
+	private int TIMEFROM = 7;
+	private int TIMETO = 8;
 
 	private ArrayList<CallHolder> callHolders = new ArrayList<CallHolder>();
 
@@ -28,37 +38,37 @@ public class XLSXParser {
 			CallHolder callHolder = new CallHolder();
 			for (int i = 0; i < line.size(); i++) {
 				String element = line.get(i);
+				element = element.replaceAll("\"", "");
 				// skip first line
 				if (element.equals("Mitarbeiter") || skip) {
+					if (!skip)
+						matchRows(line);
 					skip = true;
 					continue;
 				}
 
-				switch (i) {
-				case 0:
-					callHolder.setPerson(element);
-					break;
-				case 1:
-					callHolder.setPriceclass(parsePriceLevel(element));
-					break;
-				case 4:
-					callHolder.setWorkDescription(element);
-					break;
-				case 5:
-					callHolder.setDate(element);
-					break;
-				case 6:
-					element = element.replace(",", ".");
-					callHolder.setTimeEffort(new Double(element));
-					break;
-				case 7:
-					callHolder.setTimeFrom(Constants.generateDoubleFromTimeString(element));
-					break;
-				case 8:
-					callHolder.setTimeTo(Constants.generateDoubleFromTimeString(element));
-					break;
+				try {
+					if (i == PERSON)
+						callHolder.setPerson(element);
+					else if (i == PRICECLASS)
+						callHolder.setPriceclass(parsePriceLevel(element));
+					else if (i == WORKDESCRIPTION)
+						callHolder.setWorkDescription(element);
+					else if (i == DATE)
+						callHolder.setDate(element);
+					else if (i == EFFORT) {
+						element = element.replaceAll(",", ".");
+						callHolder.setTimeEffort(new Double(element));
+					} else if (i == TIMEFROM)
+						callHolder.setTimeFrom(Constants.generateDoubleFromTimeString(element));
+					else if (i == TIMETO)
+						callHolder.setTimeTo(Constants.generateDoubleFromTimeString(element));
+				} catch (Exception e) {
+					dialog("There have been parsing errors. Have you not filled out all blanks or not removed the emtpy rows?\n Also have you replaced all ; with . ?");
+					System.exit(1);
 				}
 			}
+
 			if (skip) {
 				continue;
 			}
@@ -70,21 +80,50 @@ public class XLSXParser {
 	}
 
 	private String parsePriceLevel(String element) {
-		String[] strings = element.split("[ ]+");
-		String result = strings[strings.length - 2] + " " + strings[strings.length - 1];
+		String result = "Preisstufe ";
+		try {
+			String[] strings = element.split("[ ]+");
+			result += strings[strings.length - 1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// ignore it
+		}
 		return result;
 
 	}
 
-	private double roundTo2Decimals(double val) {
-		double value;
-		try {
-			DecimalFormat df2 = new DecimalFormat("###.##");
-			value = Double.valueOf(df2.format(val));
-		} catch (NumberFormatException e) {
-			return val;
+	private void matchRows(ArrayList<String> list) {
+		ArrayList<String> localList = new ArrayList<String>();
+		for (String s : list) {
+			s = s.replaceAll("\"", "");
+			localList.add(s);
 		}
-		return value;
+
+		for (String s : localList) {
+			switch (s) {
+			case "Mitarbeiter":
+				PERSON = localList.indexOf(s);
+				break;
+			case "Pfad":
+				PRICECLASS = localList.indexOf(s);
+				break;
+			case "Beschreibung":
+				WORKDESCRIPTION = localList.indexOf(s);
+				break;
+			case "Datum":
+				DATE = localList.indexOf(s);
+				break;
+			case "Dauer":
+				EFFORT = localList.indexOf(s);
+				break;
+			case "Startzeit":
+				TIMEFROM = localList.indexOf(s);
+				break;
+			case "Ende":
+				TIMETO = localList.indexOf(s);
+				break;
+			}
+		}
+
 	}
 
 	private void changeContentFormat() {
@@ -156,5 +195,9 @@ public class XLSXParser {
 			}
 		}
 		callHolders = localList;
+	}
+
+	private void dialog(String message) {
+		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
 	}
 }
