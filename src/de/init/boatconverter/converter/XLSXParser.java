@@ -15,13 +15,13 @@ import de.init.boatconverter.pojos.CallHolder;
  */
 public class XLSXParser {
 
-	private int PERSON = 0;
-	private int PRICECLASS = 1;
-	private int WORKDESCRIPTION = 4;
-	private int DATE = 5;
-	private int EFFORT = 6;
-	private int TIMEFROM = 7;
-	private int TIMETO = 8;
+	private int PERSON = -1;
+	private int PRICECLASS = -1;
+	private int WORKDESCRIPTION = -1;
+	private int DATE = -1;
+	private int EFFORT = -1;
+	private int TIMEFROM = -1;
+	private int TIMETO = -1;
 
 	private ArrayList<CallHolder> callHolders = new ArrayList<CallHolder>();
 
@@ -122,6 +122,10 @@ public class XLSXParser {
 				TIMETO = localList.indexOf(s);
 				break;
 			}
+		}
+		if (PERSON == -1 | PRICECLASS == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
+			dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
+			System.exit(1);
 		}
 
 	}
