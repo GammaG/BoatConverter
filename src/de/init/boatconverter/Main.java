@@ -12,11 +12,17 @@ public class Main {
 
 	public static void main(String[] args) {
 		String path = "";
-		if (args[0].equals("")) {
-			System.out.println("Please give the path to the \"Leistungsnachweise\" as parameter.");
+
+		if (args.length == 0) {
+			System.out.println("Please give a csv file as parameter.");
 			System.exit(0);
 		} else {
 			path = args[0];
+		}
+
+		if (!path.endsWith(".csv")) {
+			System.out.println("Only CSV files are supported as input! Please save your file as csv and try again.");
+			System.exit(1);
 		}
 
 		try {
@@ -31,5 +37,4 @@ public class Main {
 		}
 
 	}
-
 }
