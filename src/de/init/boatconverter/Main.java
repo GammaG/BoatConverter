@@ -3,7 +3,7 @@ package de.init.boatconverter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.init.boatconverter.converter.XLSXParser;
+import de.init.boatconverter.converter.CSVParser;
 import de.init.boatconverter.pojos.CallHolder;
 import de.init.boatconverter.reader.FileReader;
 import de.init.boatconverter.writer.CSVWriter;
@@ -28,7 +28,7 @@ public class Main {
 		try {
 
 			ArrayList<ArrayList<String>> sheetList = new FileReader().readFile(path);
-			ArrayList<CallHolder> callholders = new XLSXParser(sheetList).convertValues();
+			ArrayList<CallHolder> callholders = new CSVParser(sheetList).convertValues();
 
 			new CSVWriter().createCSV(callholders);
 

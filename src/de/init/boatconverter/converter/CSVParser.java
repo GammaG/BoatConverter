@@ -13,7 +13,7 @@ import de.init.boatconverter.pojos.CallHolder;
  * @author mseidler
  *
  */
-public class XLSXParser {
+public class CSVParser {
 
 	private int PERSON = -1;
 	private int PRICECLASS = -1;
@@ -27,7 +27,7 @@ public class XLSXParser {
 
 	private ArrayList<ArrayList<String>> sheetList;
 
-	public XLSXParser(ArrayList<ArrayList<String>> sheetList) {
+	public CSVParser(ArrayList<ArrayList<String>> sheetList) {
 		this.sheetList = sheetList;
 	}
 
