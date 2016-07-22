@@ -84,6 +84,21 @@ public class Constants {
 			// ignore it
 		}
 		return result;
+	}
+
+	public static String removeInvalidCharacters(String text) {
+		if (text == null) {
+			return "";
+		}
+		String local = text;
+		local = local.replaceAll("Ü", "Ue");
+		local = local.replaceAll("ü", "ue");
+		local = local.replaceAll("Ä", "Ae");
+		local = local.replaceAll("ä", "ae");
+		local = local.replaceAll("Ö", "Oe");
+		local = local.replaceAll("ö", "oe");
+		local = local.replaceAll("ß", "ss");
+		return local;
 
 	}
 

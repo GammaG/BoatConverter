@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import de.init.boatconverter.converter.CSVParser;
 import de.init.boatconverter.converter.Constants;
+import de.init.boatconverter.converter.XLSXConverter;
 import de.init.boatconverter.pojos.CallHolder;
 import de.init.boatconverter.reader.ExcelReader;
 import de.init.boatconverter.reader.FileReader;
@@ -28,8 +29,9 @@ public class Main {
 				ArrayList<ArrayList<String>> sheetList = new FileReader().readFile(path);
 				callholders = new CSVParser(sheetList).convertValues();
 			} else if (path.endsWith(".xlsx")) {
-				ExcelReader excelReader = new ExcelReader();
-				excelReader.readTheXLSXFile(path);
+				callholders = new ExcelReader().readTheXLSXFile(path);
+				XLSXConverter converter = new XLSXConverter(callholders);
+				callholders = converter.formatToValidForm();
 			}
 			if (callholders != null)
 				new CSVWriter().createCSV(callholders);
