@@ -1,3 +1,9 @@
+Für XSXL:
+
+
+
+Für Prompt Exporte "CSV" Format:
+
 In der Quell CSV dürfen wegen des Parsens keine leeren Spalten, oder leere Felder vorhanden sein.
 Außerdem müssen ALLE ";" Zeichen durch einen "." ersetzt werden.
 

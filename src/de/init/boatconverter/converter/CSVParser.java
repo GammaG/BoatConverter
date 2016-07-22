@@ -2,9 +2,6 @@ package de.init.boatconverter.converter;
 
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import de.init.boatconverter.pojos.CallHolder;
 
 /**
@@ -64,7 +61,9 @@ public class CSVParser {
 					else if (i == TIMETO)
 						callHolder.setTimeTo(Constants.generateDoubleFromTimeString(element));
 				} catch (Exception e) {
-					dialog("There have been parsing errors. Have you not filled out all blanks or not removed the emtpy rows?\n Also have you replaced all ; with . ?");
+					Constants
+							.dialog("There have been parsing errors. Have you not filled out all blanks or not removed the emtpy rows?\n Also have you replaced all ; with . ?");
+					System.out.println(e.getMessage());
 					System.exit(1);
 				}
 			}
@@ -124,7 +123,7 @@ public class CSVParser {
 			}
 		}
 		if (PERSON == -1 | PRICECLASS == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
-			dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
+			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
 			System.exit(1);
 		}
 
@@ -201,7 +200,4 @@ public class CSVParser {
 		callHolders = localList;
 	}
 
-	private void dialog(String message) {
-		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
-	}
 }

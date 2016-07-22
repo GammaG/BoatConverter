@@ -2,6 +2,9 @@ package de.init.boatconverter.converter;
 
 import java.text.SimpleDateFormat;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Constants {
 
 	public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
@@ -66,6 +69,10 @@ public class Constants {
 		}
 
 		return value;
+	}
+
+	public static void dialog(String message) {
+		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
 	}
 
 }
