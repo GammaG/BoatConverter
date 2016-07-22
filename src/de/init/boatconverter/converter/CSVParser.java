@@ -48,7 +48,7 @@ public class CSVParser {
 					if (i == PERSON)
 						callHolder.setPerson(element);
 					else if (i == PRICECLASS)
-						callHolder.setPriceclass(parsePriceLevel(element));
+						callHolder.setPriceclass(Constants.parsePriceLevel(element));
 					else if (i == WORKDESCRIPTION)
 						callHolder.setWorkDescription(element);
 					else if (i == DATE)
@@ -76,18 +76,6 @@ public class CSVParser {
 		changeContentFormat();
 		changeCallLenght();
 		return callHolders;
-	}
-
-	private String parsePriceLevel(String element) {
-		String result = "Preisstufe ";
-		try {
-			String[] strings = element.split("[ ]+");
-			result += strings[strings.length - 1];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			// ignore it
-		}
-		return result;
-
 	}
 
 	private void matchRows(ArrayList<String> list) {

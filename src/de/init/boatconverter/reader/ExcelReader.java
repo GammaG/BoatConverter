@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import de.init.boatconverter.converter.Constants;
+import de.init.boatconverter.pojos.CallHolder;
 
 public class ExcelReader {
 
@@ -23,8 +24,8 @@ public class ExcelReader {
 	private int TIMEFROM = -1;
 	private int TIMETO = -1;
 
-	public ArrayList<ArrayList<Object>> readTheXLSXFile(String path) throws IOException {
-		ArrayList<ArrayList<Object>> sheetList = new ArrayList<>();
+	public ArrayList<CallHolder> readTheXLSXFile(String path) throws IOException {
+		ArrayList<CallHolder> callholders = new ArrayList<>();
 		// FileInputStream file = new FileInputStream(new
 		// File("files\\Leistungsnachweise.xlsx"));
 		FileInputStream file = new FileInputStream(new File(path));
@@ -40,6 +41,7 @@ public class ExcelReader {
 			// Iterate through each rows one by one
 			Iterator<Row> rowIterator = sheet.iterator();
 			while (rowIterator.hasNext()) {
+				CallHolder callHolder = new CallHolder();
 				Row row = rowIterator.next();
 
 				// For each row, iterate through all the columns
@@ -49,32 +51,23 @@ public class ExcelReader {
 					if (row.getRowNum() == 0) {
 						matchElement(cell);
 						continue;
-					}
-					// Check the cell type and format accordingly
-					switch (cell.getCellType()) {
-					case Cell.CELL_TYPE_NUMERIC:
-						valueList.add(cell.getNumericCellValue());
-						break;
-					case Cell.CELL_TYPE_STRING:
-						valueList.add(cell.getStringCellValue());
-						break;
-					case Cell.CELL_TYPE_BLANK:
-						valueList.add(null);
-						break;
+					} else {
+						callHolder = parseCellValues(cell, callHolder);
 					}
 				}
 				if (row.getRowNum() == 0) {
 					checkRows();
 				}
+				callholders.add(callHolder);
 			}
-			sheetList.add(valueList);
 		}
 		file.close();
 		workbook.close();
-		return sheetList;
+		return callholders;
 	}
 
 	private void matchElement(Cell cell) {
+
 		String s = cell.getStringCellValue();
 		switch (s) {
 		case "Mitarbeiter":
@@ -107,7 +100,25 @@ public class ExcelReader {
 			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
 			System.exit(1);
 		}
+	}
 
+	private CallHolder parseCellValues(Cell cell, CallHolder callHolder) {
+		int i = cell.getColumnIndex();
+		if (i == PERSON)
+			callHolder.setPerson(cell.getStringCellValue());
+		else if (i == PRICECLASS)
+			callHolder.setPriceclass(Constants.parsePriceLevel(cell.getStringCellValue()));
+		else if (i == WORKDESCRIPTION)
+			callHolder.setWorkDescription(cell.getStringCellValue());
+		else if (i == DATE)
+			callHolder.setDate("" + cell.getNumericCellValue());
+		else if (i == EFFORT)
+			callHolder.setTimeEffort(cell.getNumericCellValue());
+		else if (i == TIMEFROM)
+			callHolder.setTimeFrom(cell.getNumericCellValue());
+		else if (i == TIMETO)
+			callHolder.setTimeTo(cell.getNumericCellValue());
+		return callHolder;
 	}
 
 }

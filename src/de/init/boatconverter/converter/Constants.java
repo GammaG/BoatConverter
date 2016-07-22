@@ -75,4 +75,16 @@ public class Constants {
 		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog", JOptionPane.ERROR_MESSAGE);
 	}
 
+	public static String parsePriceLevel(String element) {
+		String result = "Preisstufe ";
+		try {
+			String[] strings = element.split("[ ]+");
+			result += strings[strings.length - 1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// ignore it
+		}
+		return result;
+
+	}
+
 }
