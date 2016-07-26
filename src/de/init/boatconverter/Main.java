@@ -33,9 +33,12 @@ public class Main {
 				XLSXConverter converter = new XLSXConverter(callholders);
 				callholders = converter.formatToValidForm();
 			}
-			if (callholders != null)
-				new CSVWriter().createCSV(callholders);
-			else {
+
+			CSVWriter csvWriter = new CSVWriter();
+			if (callholders != null) {
+				csvWriter.createCSV(callholders);
+				csvWriter.createCSVForParsing(callholders);
+			} else {
 				Constants.dialog("No information were read, was the given file format .csv or .xlsx?");
 			}
 

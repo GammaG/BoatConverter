@@ -90,6 +90,7 @@ public class Constants {
 		if (text == null) {
 			return "";
 		}
+
 		String local = text;
 		local = local.replaceAll("Ü", "Ue");
 		local = local.replaceAll("ü", "ue");
@@ -98,6 +99,8 @@ public class Constants {
 		local = local.replaceAll("Ö", "Oe");
 		local = local.replaceAll("ö", "oe");
 		local = local.replaceAll("ß", "ss");
+		local = local.replaceAll("\"", "");
+		local = local.replaceAll(";", ",");
 		return local;
 
 	}
