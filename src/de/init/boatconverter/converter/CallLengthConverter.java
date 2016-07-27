@@ -21,7 +21,7 @@ public class CallLengthConverter {
 		ArrayList<CallHolder> localList = new ArrayList<CallHolder>();
 		for (CallHolder holder : callHolders) {
 
-			if (holder.getTimeBreak() < 1 && holder.getTimeEffort() >= 6) {
+			if (holder.getTimeBreak() < 1 && holder.getTimeEffort() > 6) {
 				double originalBreakTime = holder.getTimeBreak();
 				double toAdd = 1 - originalBreakTime;
 				holder.setTimeBreak(1.0);
