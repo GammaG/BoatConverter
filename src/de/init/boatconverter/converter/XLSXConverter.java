@@ -1,5 +1,7 @@
 package de.init.boatconverter.converter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,19 +47,19 @@ public class XLSXConverter {
 			// change time layout
 			double timeFrom = callHolder.getTimeFrom();
 			timeFrom = generateTimeValue(timeFrom);
-			timeFrom = roundTo2Decimals(timeFrom);
+			timeFrom = round(timeFrom, 2);
 			callHolder.setTimeFrom(timeFrom);
 
 			// change time layout
 			double timeTo = callHolder.getTimeTo();
 			timeTo = generateTimeValue(timeTo);
-			timeTo = roundTo2Decimals(timeTo);
+			timeTo = round(timeTo, 2);
 			callHolder.setTimeTo(timeTo);
 
 			// change time layout
 			double timeEffort = callHolder.getTimeEffort();
 			timeEffort = generateTimeValue(timeEffort);
-			timeEffort = roundTo2Decimals(timeEffort);
+			timeEffort = round(timeEffort, 2);
 			callHolder.setTimeEffort(timeEffort);
 
 			localHolders.add(callHolder);
@@ -67,15 +69,23 @@ public class XLSXConverter {
 
 	private double generateTimeValue(double time) {
 		double localTemp = time * 24;
-		localTemp = roundTo2Decimals(localTemp);
 		return localTemp;
+	}
+
+	private double round(double value, int places) {
+		if (places < 0)
+			throw new IllegalArgumentException();
+		BigDecimal bd = new BigDecimal(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 
 	private double roundTo2Decimals(double val) {
 		double value;
 		try {
 			DecimalFormat df2 = new DecimalFormat("###,##");
-			value = Double.valueOf(df2.format(val));
+			String rounded = df2.format(val);
+			value = Double.valueOf(rounded);
 		} catch (NumberFormatException e) {
 			System.out.println(e.getMessage());
 			return val;
