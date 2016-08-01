@@ -52,7 +52,11 @@ public class ExcelReader {
 						matchElement(cell);
 						continue;
 					} else {
-						callHolder = parseCellValues(cell, callHolder);
+						try {
+							callHolder = parseCellValues(cell, callHolder);
+						} catch (IllegalStateException e) {
+							System.out.println(e);
+						}
 					}
 				}
 				if (row.getRowNum() == 0) {
