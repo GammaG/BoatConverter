@@ -74,7 +74,7 @@ public class ExcelReader {
 		case "Mitarbeiter":
 			PERSON = cell.getColumnIndex();
 			break;
-		case "Pfad":
+		case "Aufgabe":
 			PRICECLASS = cell.getColumnIndex();
 			break;
 		case "Beschreibung":
@@ -98,7 +98,7 @@ public class ExcelReader {
 
 	private void checkRows() {
 		if (PERSON == -1 | PRICECLASS == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
-			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
+			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nAufgabe\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
 			System.exit(1);
 		}
 	}

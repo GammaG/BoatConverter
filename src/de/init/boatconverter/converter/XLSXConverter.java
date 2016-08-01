@@ -2,7 +2,6 @@ package de.init.boatconverter.converter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,19 +77,6 @@ public class XLSXConverter {
 		BigDecimal bd = new BigDecimal(value);
 		bd = bd.setScale(places, RoundingMode.HALF_UP);
 		return bd.doubleValue();
-	}
-
-	private double roundTo2Decimals(double val) {
-		double value;
-		try {
-			DecimalFormat df2 = new DecimalFormat("###,##");
-			String rounded = df2.format(val);
-			value = Double.valueOf(rounded);
-		} catch (NumberFormatException e) {
-			System.out.println(e.getMessage());
-			return val;
-		}
-		return value;
 	}
 
 }
