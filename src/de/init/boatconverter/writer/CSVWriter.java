@@ -29,7 +29,7 @@ public class CSVWriter {
 				sbOut.append(CsvUtil.quotedColumn(holder.getPriceclass()));
 				sbOut.append(CsvUtil.quotedColumn(holder.getWorkDescription()));
 				sbOut.append(CsvUtil.quotedColumn(holder.getDate()));
-				sbOut.append(CsvUtil.quotedColumn(Constants.getTimeValueAsString(holder.getTimeEffort())));
+				sbOut.append(CsvUtil.quotedColumn("" + holder.getTimeEffort()));
 				sbOut.append(CsvUtil.quotedColumn(Constants.getTimeValueAsString(holder.getTimeFrom())));
 				sbOut.append(CsvUtil.quotedColumn(Constants.getTimeValueAsString(holder.getTimeTo())));
 				sbOut.append(CsvUtil.quotedColumn(holder.getInternalNote()));
