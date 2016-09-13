@@ -15,7 +15,6 @@ In dem Programm äußert sich ein Fehler hier in einer Fehlermeldung und einen Abb
 
 Notwendige Felder für den Export sind:
 Mitarbeiter
-Pfad			
 Beschreibung
 Datum				
 Dauer				

@@ -34,16 +34,33 @@ public class Main {
 				callholders = converter.formatToValidForm();
 			}
 
+			boolean valuesAreValid = true;
+			ArrayList<CallHolder> buggedHolder = new ArrayList<CallHolder>();
+			for (CallHolder holder : callholders) {
+				if (!holder.checkIfValuesAreValid()) {
+					valuesAreValid = false;
+					buggedHolder.add(holder);
+				}
+
+			}
+
 			CSVWriter csvWriter = new CSVWriter();
-			if (callholders != null) {
+			if (callholders != null & valuesAreValid) {
 				csvWriter.createCSV(callholders);
 				csvWriter.createCSVForParsing(callholders);
 			} else {
-				Constants.dialog("No information were read, was the given file format .csv or .xlsx?");
+
+				StringBuilder builder = new StringBuilder();
+				builder.append("The following items are invalid:\n");
+				for (CallHolder holder : buggedHolder) {
+					builder.append(holder.toString() + "\n");
+				}
+				Constants.dialog(builder.toString());
+				System.exit(1);
 			}
 
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
 		}
 
 	}

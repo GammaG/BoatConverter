@@ -17,7 +17,6 @@ import de.init.boatconverter.pojos.CallHolder;
 public class ExcelReader {
 
 	private int PERSON = -1;
-	private int PRICECLASS = -1;
 	private int WORKDESCRIPTION = -1;
 	private int DATE = -1;
 	private int EFFORT = -1;
@@ -78,9 +77,6 @@ public class ExcelReader {
 		case "Mitarbeiter":
 			PERSON = cell.getColumnIndex();
 			break;
-		case "Aufgabe":
-			PRICECLASS = cell.getColumnIndex();
-			break;
 		case "Beschreibung":
 			WORKDESCRIPTION = cell.getColumnIndex();
 			break;
@@ -101,8 +97,8 @@ public class ExcelReader {
 	}
 
 	private void checkRows() {
-		if (PERSON == -1 | PRICECLASS == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
-			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nAufgabe\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
+		if (PERSON == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
+			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
 			System.exit(1);
 		}
 	}
@@ -111,8 +107,6 @@ public class ExcelReader {
 		int i = cell.getColumnIndex();
 		if (i == PERSON)
 			callHolder.setPerson(cell.getStringCellValue());
-		else if (i == PRICECLASS)
-			callHolder.setPriceclass(Constants.parsePriceLevel(cell.getStringCellValue()));
 		else if (i == WORKDESCRIPTION)
 			callHolder.setWorkDescription(cell.getStringCellValue());
 		else if (i == DATE)

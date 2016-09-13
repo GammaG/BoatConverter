@@ -12,7 +12,6 @@ public class CSVWriter {
 		// Write the first text line
 		StringBuilder sbOut = new StringBuilder();
 		sbOut.append(CsvUtil.quotedColumn("Mitarbeiter"));
-		sbOut.append(CsvUtil.quotedColumn("Aufgabe"));
 		sbOut.append(CsvUtil.quotedColumn("Beschreibung"));
 		sbOut.append(CsvUtil.quotedColumn("Datum"));
 		sbOut.append(CsvUtil.quotedColumn("Dauer"));
@@ -26,7 +25,6 @@ public class CSVWriter {
 			// fill in the information
 			for (CallHolder holder : callholders) {
 				sbOut.append(CsvUtil.quotedColumn(holder.getPerson()));
-				sbOut.append(CsvUtil.quotedColumn(holder.getPriceclass()));
 				sbOut.append(CsvUtil.quotedColumn(holder.getWorkDescription()));
 				sbOut.append(CsvUtil.quotedColumn(holder.getDate()));
 				sbOut.append(CsvUtil.quotedColumn(("" + holder.getTimeEffort()).replace(".", ",")));
@@ -88,7 +86,7 @@ public class CSVWriter {
 			}
 			CsvUtil.saveFile("export", sbOut.toString());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e);
 		}
 	}
 

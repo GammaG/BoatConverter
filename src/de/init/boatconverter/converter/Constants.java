@@ -37,6 +37,8 @@ public class Constants {
 		case "0.75":
 			value = iPart + ":45";
 			break;
+		default:
+			return "";
 
 		}
 		return value;

@@ -1,15 +1,16 @@
 package de.init.boatconverter.pojos;
 
+import de.init.boatconverter.converter.Constants;
+
 public class CallHolder {
 
 	private String date;
-	private double timeFrom;
-	private double timeTo;
+	private double timeFrom = 0;
+	private double timeTo = 0;
 	private double timeEffort;
 	private double timeBreak = 0;
 	private String workDescription;
 	private String person;
-	private String priceclass;
 	private String internalNote = "";
 
 	public String getDate() {
@@ -68,14 +69,6 @@ public class CallHolder {
 		this.person = person;
 	}
 
-	public String getPriceclass() {
-		return priceclass;
-	}
-
-	public void setPriceclass(String priceclass) {
-		this.priceclass = priceclass;
-	}
-
 	public String getInternalNote() {
 		return internalNote;
 	}
@@ -86,13 +79,23 @@ public class CallHolder {
 		} else {
 			this.internalNote += "; " + internalNote;
 		}
+	}
 
+	public boolean checkIfValuesAreValid() {
+		if (workDescription.equals("Portalanaylse mit Bewertungsmatrix")) {
+			System.out.println("stuff");
+		}
+		if (person == null | timeFrom == 0 | timeTo == 0 || Constants.getTimeValueAsString(timeFrom).equals("")
+				|| Constants.getTimeValueAsString(timeTo).equals("")) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "CallHolder [date=" + date + ", timeFrom=" + timeFrom + ", timeTo=" + timeTo + ", timeEffort=" + timeEffort + ", timeBreak=" + timeBreak
-				+ ", workDescription=" + workDescription + ", person=" + person + ", priceclass=" + priceclass + ", internalNote=" + internalNote + "]";
+				+ ", workDescription=" + workDescription + ", person=" + person + "]";
 	}
 
 }

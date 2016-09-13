@@ -46,7 +46,6 @@ public class CallLengthConverter {
 				localHolder.setTimeTo(oldToValue);
 				localHolder.setTimeEffort(oldToValue - (toValue + holder.getTimeBreak()));
 				localHolder.setPerson(holder.getPerson());
-				localHolder.setPriceclass(holder.getPriceclass());
 
 				String message = "Buchung > 6 Stunden -> Aufgesplitted in zwei Buchungen, Zeiten fuer Pause angepasst";
 				holder.setInternalNote(message);

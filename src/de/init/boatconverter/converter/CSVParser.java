@@ -13,7 +13,6 @@ import de.init.boatconverter.pojos.CallHolder;
 public class CSVParser {
 
 	private int PERSON = -1;
-	private int PRICECLASS = -1;
 	private int WORKDESCRIPTION = -1;
 	private int DATE = -1;
 	private int EFFORT = -1;
@@ -47,8 +46,6 @@ public class CSVParser {
 				try {
 					if (i == PERSON)
 						callHolder.setPerson(element);
-					else if (i == PRICECLASS)
-						callHolder.setPriceclass(Constants.parsePriceLevel(element));
 					else if (i == WORKDESCRIPTION)
 						callHolder.setWorkDescription(element);
 					else if (i == DATE)
@@ -90,9 +87,6 @@ public class CSVParser {
 			case "Mitarbeiter":
 				PERSON = localList.indexOf(s);
 				break;
-			case "Pfad":
-				PRICECLASS = localList.indexOf(s);
-				break;
 			case "Beschreibung":
 				WORKDESCRIPTION = localList.indexOf(s);
 				break;
@@ -110,7 +104,7 @@ public class CSVParser {
 				break;
 			}
 		}
-		if (PERSON == -1 | PRICECLASS == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
+		if (PERSON == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
 			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nPfad\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
 			System.exit(1);
 		}
