@@ -11,26 +11,26 @@ public class CSVWriter {
 
 		// Write the first text line
 		StringBuilder sbOut = new StringBuilder();
-		sbOut.append(CsvUtil.quotedColumn("Mitarbeiter"));
-		sbOut.append(CsvUtil.quotedColumn("Beschreibung"));
-		sbOut.append(CsvUtil.quotedColumn("Datum"));
-		sbOut.append(CsvUtil.quotedColumn("Dauer"));
-		sbOut.append(CsvUtil.quotedColumn("Startzeit"));
-		sbOut.append(CsvUtil.quotedColumn("Ende"));
-		sbOut.append(CsvUtil.quotedColumn("Interne Notiz"));
-		sbOut.append(CsvUtil.quotedColumn("Pruefung"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Mitarbeiter"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Beschreibung"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Datum"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Dauer"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Startzeit"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Ende"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Interne Notiz"));
+		sbOut.append(CsvUtil.quotedColumnSemicolon("Pruefung"));
 		sbOut.append("\n");
 
 		try {
 			// fill in the information
 			for (CallHolder holder : callholders) {
-				sbOut.append(CsvUtil.quotedColumn(holder.getPerson()));
-				sbOut.append(CsvUtil.quotedColumn(holder.getWorkDescription()));
-				sbOut.append(CsvUtil.quotedColumn(holder.getDate()));
-				sbOut.append(CsvUtil.quotedColumn(("" + holder.getTimeEffort()).replace(".", ",")));
-				sbOut.append(CsvUtil.quotedColumn(Constants.getTimeValueAsString(holder.getTimeFrom())));
-				sbOut.append(CsvUtil.quotedColumn(Constants.getTimeValueAsString(holder.getTimeTo())));
-				sbOut.append(CsvUtil.quotedColumn(holder.getInternalNote()));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getPerson()));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getWorkDescription()));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getDate()));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(("" + holder.getTimeEffort()).replace(".", ",")));
+				sbOut.append(CsvUtil.quotedColumnSemicolon((Constants.getTimeValueAsString(holder.getTimeFrom()))));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(Constants.getTimeValueAsString(holder.getTimeTo())));
+				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getInternalNote()));
 				sbOut.append("\n");
 			}
 			CsvUtil.saveFile("Leistungsnachweis", sbOut.toString());
@@ -43,13 +43,13 @@ public class CSVWriter {
 
 		// Write the first text line
 		StringBuilder sbOut = new StringBuilder();
-		sbOut.append(CsvUtil.quotedColumn("Mitarbeiter"));
-		sbOut.append(CsvUtil.quotedColumn("Beschreibung"));
-		sbOut.append(CsvUtil.quotedColumn("Datum"));
-		sbOut.append(CsvUtil.quotedColumn("Startzeit_h"));
-		sbOut.append(CsvUtil.quotedColumn("Startzeit_m"));
-		sbOut.append(CsvUtil.quotedColumn("Endzeit_h"));
-		sbOut.append(CsvUtil.quotedColumn("Endzeit_m"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Mitarbeiter"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Beschreibung"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Datum"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Startzeit_h"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Startzeit_m"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Endzeit_h"));
+		sbOut.append(CsvUtil.quotedColumnAlternative("Endzeit_m"));
 		sbOut.append("\n");
 
 		try {
@@ -59,7 +59,7 @@ public class CSVWriter {
 
 				String task = holder.getWorkDescription();
 				sbOut.append(CsvUtil.quotedColumn(task));
-				sbOut.append(CsvUtil.quotedColumn(holder.getDate()));
+				sbOut.append(CsvUtil.quotedColumnAlternative(holder.getDate()));
 
 				String time = Constants.getTimeValueAsString(holder.getTimeFrom());
 				String[] times = time.split("[:]+");
@@ -68,8 +68,8 @@ public class CSVWriter {
 					hour = "0" + hour;
 				}
 				String minute = times[1];
-				sbOut.append(CsvUtil.quotedColumn(hour));
-				sbOut.append(CsvUtil.quotedColumn(minute));
+				sbOut.append(CsvUtil.quotedColumnAlternative(hour));
+				sbOut.append(CsvUtil.quotedColumnAlternative(minute));
 
 				time = Constants.getTimeValueAsString(holder.getTimeTo());
 				times = time.split("[:]+");
@@ -79,8 +79,8 @@ public class CSVWriter {
 				}
 				minute = times[1];
 
-				sbOut.append(CsvUtil.quotedColumn(hour));
-				sbOut.append(CsvUtil.quotedColumn(minute));
+				sbOut.append(CsvUtil.quotedColumnAlternative(hour));
+				sbOut.append(CsvUtil.quotedColumnAlternative(minute));
 
 				sbOut.append("\n");
 			}

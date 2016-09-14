@@ -13,20 +13,36 @@ import java.util.GregorianCalendar;
 public class CsvUtil {
 
 	public static String emptyColumn() {
-		return "\"\";";
+		return "\"\",";
 	}
 
 	public static String quotedColumn(String content) {
-		return "\"" + content + "\";";
+		return "\"" + content + "\",";
+	}
+
+	public static String quotedColumnAlternative(String content) {
+		return content + ",";
 	}
 
 	public static String quotedLastColumn(String content) {
 		return "\"" + content + "\"\n";
 	}
 
+	public static String emptyColumnSemicolon() {
+		return "\"\";";
+	}
+
+	public static String quotedColumnSemicolon(String content) {
+		return "\"" + content + "\";";
+	}
+
+	public static String quotedLastColumnSemicolon(String content) {
+		return "\"" + content + "\"\n";
+	}
+
 	public static String removeInvalidCharacters(String content) {
 		if (content != null)
-			return content.replaceAll("\n", " ").replaceAll(";", ",").replaceAll("\"", "'");
+			return content.replaceAll("\n", " ").replaceAll("\"", "'");
 		return "";
 	}
 
