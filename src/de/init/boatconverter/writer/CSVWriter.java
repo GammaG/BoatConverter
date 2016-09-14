@@ -16,7 +16,7 @@ public class CSVWriter {
 		sbOut.append(CsvUtil.quotedColumn("Datum"));
 		sbOut.append(CsvUtil.quotedColumn("Dauer"));
 		sbOut.append(CsvUtil.quotedColumn("Startzeit"));
-		sbOut.append(CsvUtil.quotedColumn("Endzeit"));
+		sbOut.append(CsvUtil.quotedColumn("Ende"));
 		sbOut.append(CsvUtil.quotedColumn("Interne Notiz"));
 		sbOut.append(CsvUtil.quotedColumn("Pruefung"));
 		sbOut.append("\n");

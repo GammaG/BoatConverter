@@ -58,6 +58,7 @@ public class CSVParser {
 					else if (i == TIMETO)
 						callHolder.setTimeTo(Constants.generateDoubleFromTimeString(element));
 				} catch (Exception e) {
+
 					Constants
 							.dialog("There have been parsing errors. Have you not filled out all blanks or not removed the emtpy rows?\n Also have you replaced all ; with . ?");
 					System.out.println(e.getMessage());
