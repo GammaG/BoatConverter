@@ -1,6 +1,6 @@
 package de.init.boatconverter.pojos;
 
-import de.init.boatconverter.converter.Constants;
+import de.init.boatconverter.usage.Constants;
 
 public class CallHolder {
 

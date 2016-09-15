@@ -1,4 +1,4 @@
-package de.init.boatconverter.converter;
+package de.init.boatconverter.usage;
 
 import java.text.SimpleDateFormat;
 
@@ -6,6 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Constants {
+
+	public enum Dialog {
+		SHOW_DIALOG, DONT_SHOW_DIALOG;
+	}
+
+	public static Dialog DIALOG_STATUS = Dialog.DONT_SHOW_DIALOG;
 
 	public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
 

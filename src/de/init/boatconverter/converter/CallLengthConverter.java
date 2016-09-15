@@ -3,6 +3,8 @@ package de.init.boatconverter.converter;
 import java.util.ArrayList;
 
 import de.init.boatconverter.pojos.CallHolder;
+import de.init.boatconverter.usage.Constants;
+import de.init.boatconverter.usage.ShowDialog;
 
 public class CallLengthConverter {
 
@@ -31,7 +33,12 @@ public class CallLengthConverter {
 			if (holder.getTimeEffort() > 6) {
 				CallHolder localHolder = new CallHolder();
 				localHolder.setDate(holder.getDate());
-				localHolder.setWorkDescription(holder.getWorkDescription());
+				if (Constants.DIALOG_STATUS == Constants.Dialog.SHOW_DIALOG) {
+					String localWorkdescription = new ShowDialog().showDescriptionDialog(holder);
+					localHolder.setWorkDescription(Constants.removeInvalidCharacters(localWorkdescription));
+				} else {
+					localHolder.setWorkDescription(holder.getWorkDescription());
+				}
 				localHolder.setTimeBreak(0);
 
 				double oldToValue = holder.getTimeTo();

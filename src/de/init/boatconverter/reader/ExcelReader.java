@@ -11,8 +11,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import de.init.boatconverter.converter.Constants;
 import de.init.boatconverter.pojos.CallHolder;
+import de.init.boatconverter.usage.Constants;
 
 public class ExcelReader {
 

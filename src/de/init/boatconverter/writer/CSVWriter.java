@@ -2,8 +2,8 @@ package de.init.boatconverter.writer;
 
 import java.util.ArrayList;
 
-import de.init.boatconverter.converter.Constants;
 import de.init.boatconverter.pojos.CallHolder;
+import de.init.boatconverter.usage.Constants;
 
 public class CSVWriter {
 

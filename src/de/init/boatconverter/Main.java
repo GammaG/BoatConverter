@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import de.init.boatconverter.converter.CSVParser;
-import de.init.boatconverter.converter.Constants;
 import de.init.boatconverter.converter.XLSXConverter;
 import de.init.boatconverter.pojos.CallHolder;
 import de.init.boatconverter.reader.ExcelReader;
 import de.init.boatconverter.reader.FileReader;
+import de.init.boatconverter.usage.Constants;
 import de.init.boatconverter.writer.CSVWriter;
 
 public class Main {
@@ -17,10 +17,17 @@ public class Main {
 		String path = "";
 
 		if (args.length == 0) {
-			System.out.println("Please give a .csv or .xlsx file as parameter.");
-			System.exit(0);
+			showErrorMessageAndExit();
 		} else {
 			path = args[0];
+			if (path.equals("-d")) {
+				Constants.DIALOG_STATUS = Constants.Dialog.SHOW_DIALOG;
+				try {
+					path = args[1];
+				} catch (Exception e) {
+					showErrorMessageAndExit();
+				}
+			}
 		}
 
 		try {
@@ -62,6 +69,11 @@ public class Main {
 		} catch (IOException e) {
 			System.out.println(e.getStackTrace());
 		}
+		System.exit(0);
+	}
 
+	private static void showErrorMessageAndExit() {
+		System.out.println("Please give a .csv or .xlsx file as parameter.");
+		System.exit(1);
 	}
 }
