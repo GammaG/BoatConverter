@@ -101,7 +101,7 @@ public class Constants {
 		local = local.replaceAll("Ö", "Oe");
 		local = local.replaceAll("ö", "oe");
 		local = local.replaceAll("ß", "ss");
-		local = local.replaceAll("\"", "");
+		local = local.replaceAll("\"", "'");
 		// local = local.replaceAll(";", ",");
 		return local;
 
