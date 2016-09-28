@@ -24,6 +24,9 @@ public class CSVWriter {
 		try {
 			// fill in the information
 			for (CallHolder holder : callholders) {
+				if (holder.getSkip()) {
+					continue;
+				}
 				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getPerson()));
 				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getWorkDescription()));
 				sbOut.append(CsvUtil.quotedColumnSemicolon(holder.getDate()));
@@ -55,6 +58,9 @@ public class CSVWriter {
 		try {
 			// fill in the information
 			for (CallHolder holder : callholders) {
+				if (holder.getSkip()) {
+					continue;
+				}
 				sbOut.append(CsvUtil.quotedColumn(holder.getPerson()));
 
 				String task = holder.getWorkDescription();

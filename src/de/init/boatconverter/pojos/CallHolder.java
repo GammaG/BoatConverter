@@ -12,6 +12,7 @@ public class CallHolder {
 	private String workDescription;
 	private String person;
 	private String internalNote = "";
+	private Boolean skip = false;
 
 	public String getDate() {
 		return date;
@@ -73,6 +74,14 @@ public class CallHolder {
 		return internalNote;
 	}
 
+	public Boolean getSkip() {
+		return skip;
+	}
+
+	public void setSkip(Boolean skip) {
+		this.skip = skip;
+	}
+
 	public void setInternalNote(String internalNote) {
 		if (this.internalNote.equals("")) {
 			this.internalNote = internalNote;
@@ -82,11 +91,11 @@ public class CallHolder {
 	}
 
 	public boolean checkIfValuesAreValid() {
-		if (workDescription.equals("Portalanaylse mit Bewertungsmatrix")) {
-			System.out.println("stuff");
+		if (person == null) {
+			skip = true;
+			return true;
 		}
-		if (person == null | timeFrom == 0 | timeTo == 0 || Constants.getTimeValueAsString(timeFrom).equals("")
-				|| Constants.getTimeValueAsString(timeTo).equals("")) {
+		if (timeFrom == 0 | timeTo == 0 || Constants.getTimeValueAsString(timeFrom).equals("") || Constants.getTimeValueAsString(timeTo).equals("")) {
 			return false;
 		}
 		return true;
