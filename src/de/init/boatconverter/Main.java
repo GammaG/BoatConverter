@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import de.init.boatconverter.converter.CSVParser;
 import de.init.boatconverter.converter.XLSXConverter;
 import de.init.boatconverter.pojos.CallHolder;
+import de.init.boatconverter.pojos.Persons;
 import de.init.boatconverter.reader.ExcelReader;
 import de.init.boatconverter.reader.FileReader;
 import de.init.boatconverter.usage.Constants;
@@ -53,6 +54,14 @@ public class Main {
 
 			CSVWriter csvWriter = new CSVWriter();
 			if (callholders != null & valuesAreValid) {
+				for (CallHolder holder : callholders) {
+					String name = holder.getPerson();
+					if (Persons.nameAlreadyInTheList(name)) {
+						name = Persons.getReplacementName(name);
+						holder.setPerson(name);
+					}
+				}
+
 				csvWriter.createCSV(callholders);
 				csvWriter.createCSVForParsing(callholders);
 			} else {

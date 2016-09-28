@@ -10,7 +10,7 @@ public class CallHolder {
 	private double timeEffort;
 	private double timeBreak = 0;
 	private String workDescription;
-	private String person;
+	private String person = "";
 	private String internalNote = "";
 	private Boolean skip = false;
 
@@ -91,7 +91,7 @@ public class CallHolder {
 	}
 
 	public boolean checkIfValuesAreValid() {
-		if (person == null) {
+		if (person == "") {
 			skip = true;
 			return true;
 		}

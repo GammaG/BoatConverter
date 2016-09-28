@@ -3,6 +3,7 @@ package de.init.boatconverter.converter;
 import java.util.ArrayList;
 
 import de.init.boatconverter.pojos.CallHolder;
+import de.init.boatconverter.pojos.Persons;
 import de.init.boatconverter.usage.Constants;
 import de.init.boatconverter.usage.ShowDialog;
 
@@ -22,6 +23,25 @@ public class CallLengthConverter {
 	public ArrayList<CallHolder> changeCallLenght() {
 		ArrayList<CallHolder> localList = new ArrayList<CallHolder>();
 		for (CallHolder holder : callHolders) {
+
+			String name = holder.getPerson();
+			if (name.equals(""))
+				continue;
+
+			if (name.contains("Dr. ")) {
+				name = name.replace("Dr. ", "").trim();
+				holder.setPerson(name);
+			}
+			if (name.contains("Dr.")) {
+				name = name.replace("Dr.", "").trim();
+				holder.setPerson(name);
+			}
+
+			if (!name.contains(",") & !Persons.nameAlreadyInTheList(name)) {
+				String newName = new ShowDialog().showPersonDialog(holder).trim();
+				String[] element = { name, newName };
+				Persons.addElement(element);
+			}
 
 			if (holder.getTimeBreak() < 1 && holder.getTimeEffort() > 6) {
 				double originalBreakTime = holder.getTimeBreak();
@@ -67,5 +87,4 @@ public class CallLengthConverter {
 		}
 		return localList;
 	}
-
 }
