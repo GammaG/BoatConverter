@@ -91,14 +91,18 @@ public class CallHolder {
 	}
 
 	public boolean checkIfValuesAreValid() {
+		boolean testResult = true;
 		if (person == "") {
 			skip = true;
-			return true;
+			return testResult;
 		}
 		if (timeFrom == 0 | timeTo == 0 || Constants.getTimeValueAsString(timeFrom).equals("") || Constants.getTimeValueAsString(timeTo).equals("")) {
-			return false;
+			testResult = false;
 		}
-		return true;
+		if (!((timeTo - timeFrom) == timeEffort)) {
+			testResult = false;
+		}
+		return testResult;
 	}
 
 	@Override

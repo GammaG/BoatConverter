@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import de.init.boatconverter.converter.CSVParser;
+import de.init.boatconverter.converter.CallLengthConverter;
 import de.init.boatconverter.converter.XLSXConverter;
 import de.init.boatconverter.pojos.CallHolder;
 import de.init.boatconverter.pojos.Persons;
@@ -54,6 +55,7 @@ public class Main {
 
 			CSVWriter csvWriter = new CSVWriter();
 			if (callholders != null & valuesAreValid) {
+				callholders = new CallLengthConverter(callholders).changeCallLenght();
 				for (CallHolder holder : callholders) {
 					String name = holder.getPerson();
 					if (Persons.nameAlreadyInTheList(name)) {

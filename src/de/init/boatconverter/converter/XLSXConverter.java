@@ -42,7 +42,9 @@ public class XLSXConverter {
 			callHolder.setWorkDescription(task);
 
 			// add missing effort time values
-			callHolder.setTimeEffort(callHolder.getTimeTo() - callHolder.getTimeFrom());
+			if (callHolder.getTimeEffort() == 0) {
+				callHolder.setTimeEffort(callHolder.getTimeTo() - callHolder.getTimeFrom());
+			}
 
 			// change time layout
 			double timeFrom = callHolder.getTimeFrom();
@@ -56,15 +58,9 @@ public class XLSXConverter {
 			timeTo = round(timeTo, 2);
 			callHolder.setTimeTo(timeTo);
 
-			// change time layout
-			double timeEffort = callHolder.getTimeEffort();
-			timeEffort = generateTimeValue(timeEffort);
-			timeEffort = round(timeEffort, 2);
-			callHolder.setTimeEffort(timeEffort);
-
 			localHolders.add(callHolder);
 		}
-		return new CallLengthConverter(localHolders).changeCallLenght();
+		return localHolders;
 	}
 
 	private double generateTimeValue(double time) {

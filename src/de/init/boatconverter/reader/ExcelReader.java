@@ -33,7 +33,6 @@ public class ExcelReader {
 		XSSFWorkbook workbook = new XSSFWorkbook(file);
 
 		for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-			ArrayList<Object> valueList = new ArrayList<>();
 			// Get first/desired sheet from the workbook
 			XSSFSheet sheet = workbook.getSheetAt(i);
 
