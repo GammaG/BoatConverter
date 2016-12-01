@@ -85,7 +85,7 @@ public class ExcelReader {
 		case "Dauer":
 			EFFORT = cell.getColumnIndex();
 			break;
-		case "Startzeit":
+		case "Start":
 			TIMEFROM = cell.getColumnIndex();
 			break;
 		case "Ende":
@@ -97,7 +97,7 @@ public class ExcelReader {
 
 	private void checkRows() {
 		if (PERSON == -1 | WORKDESCRIPTION == -1 | DATE == -1 | EFFORT == -1 | TIMEFROM == -1 | TIMETO == -1) {
-			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nBeschreibung\nDatum\nDauer\nStartzeit\nEnde\n");
+			Constants.dialog("Not all needed field have been given.\nNeeded are:\nMitarbeiter\nBeschreibung\nDatum\nDauer\nStart\nEnde\n");
 			System.exit(1);
 		}
 	}
