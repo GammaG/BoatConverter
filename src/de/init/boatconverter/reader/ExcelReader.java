@@ -91,7 +91,6 @@ public class ExcelReader {
 		case "Ende":
 			TIMETO = cell.getColumnIndex();
 			break;
-
 		}
 	}
 
